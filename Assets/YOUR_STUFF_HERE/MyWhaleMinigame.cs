@@ -29,8 +29,16 @@ public class MyWhaleMinigame : MinigameBase
         {
             if (PlayerUtilities.GetPlayerState(i) == Player.PlayerState.ACTIVE)
             {
-                gsd.PlayerScores[i] = (int)((scoreToEarn) + gm.m_GameTimer.CurrentTime); //each player scores x point depending on how close to the centre they land on the plate,
-                                                                              //as well as how much time is left
+                if(scoreToEarn != 0)
+                {
+                    gsd.PlayerScores[i] = (int)((scoreToEarn) + gm.m_GameTimer.CurrentTime);//each player scores x point depending on how close to the centre they land on the plate,
+                                                                                            //as well as how much time is left
+                }
+                else
+                {
+                    gsd.PlayerScores[i] = 0;
+                }
+                                                                              
                 gsd.PlayerTimes[i] = 0;       //Each player gets two seconds per point scored
                 teamTime = 0;                 //Keep a running total of the total time scored by all players
             }
@@ -92,7 +100,7 @@ public class MyWhaleMinigame : MinigameBase
     public override void TimeUp()
     {
         //check who won the game and reset the minigame :)))
-        OnGameComplete(true);
+        OnGameComplete(true); //1519 - room gaz is in 
         foreach(PlayerSushi s in m_Sushis)
         {
             s.ResetPosition();
