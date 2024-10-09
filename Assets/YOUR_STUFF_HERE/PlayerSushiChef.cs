@@ -7,6 +7,7 @@ public class PlayerSushiChef : MonoBehaviour
     public int directionInput = -1;
 
     [SerializeField] ButtonPrompt[] prompts;
+    [SerializeField] public int playerIndex;
     public int[] curPromptSequence;
     public int j = 0;
     Vector2 lastFrame = Vector2.zero;
@@ -14,12 +15,16 @@ public class PlayerSushiChef : MonoBehaviour
     public int nextPrompt;
     public bool done = false;
 
+    public int sushisMade;
+
     [SerializeField] SushiMakeMainScrpt sushiMakeScprt;
 
     // Start is called before the first frame update
     void Start()
     {
-        updatePromptSequence();
+        Invoke("updatePromptSequence", 0.1f);
+        //updatePromptSequence();
+        sushisMade--;
         nextPrompt = curPromptSequence[0];
         //curPromptSequence = new int[prompts.Length];
         //int count = 0;
@@ -29,6 +34,11 @@ public class PlayerSushiChef : MonoBehaviour
         //    count++;
         //}
         //nextPrompt = curPromptSequence[0];
+    }
+
+    private void Awake()
+    {
+        sushiMakeScprt.generatePromptSequence(playerIndex);
     }
 
     // Update is called once per frame
@@ -46,8 +56,8 @@ public class PlayerSushiChef : MonoBehaviour
             curPromptSequence[count] = prompts[count].curPrompt;
             count++;
         }
-        print("bababooey");
         nextPrompt = curPromptSequence[0];
+        sushisMade++;
         done = false;
     }
 
@@ -69,10 +79,10 @@ public class PlayerSushiChef : MonoBehaviour
                 if (nextPrompt == curPromptSequence[2] && j == 3)
                 {
                     print("done :)");
-                    sushiMakeScprt.generatePromptSequence();
+                    sushiMakeScprt.generatePromptSequence(playerIndex);
                     j = 0;
                     done = true;
-                    Invoke("updatePromptSequence", 0.5f);
+                    Invoke("updatePromptSequence", 0.1f);
                 }
                 else
                 {
@@ -106,7 +116,7 @@ public class PlayerSushiChef : MonoBehaviour
                 if (nextPrompt == curPromptSequence[2] && j == 3)
                 {
                     print("done :)");
-                    sushiMakeScprt.generatePromptSequence();
+                    sushiMakeScprt.generatePromptSequence(playerIndex);
                     j = 0;
                     done = true;
                     Invoke("updatePromptSequence", 0.5f);
@@ -143,7 +153,7 @@ public class PlayerSushiChef : MonoBehaviour
                 if (nextPrompt == curPromptSequence[2] && j == 3)
                 {
                     print("done :)");
-                    sushiMakeScprt.generatePromptSequence();
+                    sushiMakeScprt.generatePromptSequence(playerIndex);
                     j = 0;
                     done = true;
                     Invoke("updatePromptSequence", 0.5f);
@@ -180,7 +190,7 @@ public class PlayerSushiChef : MonoBehaviour
                 if (nextPrompt == curPromptSequence[2] && j == 3)
                 {
                     print("done :)");
-                    sushiMakeScprt.generatePromptSequence();
+                    sushiMakeScprt.generatePromptSequence(playerIndex);
                     j = 0;
                     done = true;
                     Invoke("updatePromptSequence", 0.5f);

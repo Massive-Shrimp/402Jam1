@@ -27,27 +27,52 @@ public class SushiMakeMainScrpt : MinigameBase
         {
             if (PlayerUtilities.GetPlayerState(i) == Player.PlayerState.ACTIVE)
             {
-                gsd.PlayerScores[i] = 1;      //each player gets 1 point
+                gsd.PlayerScores[i] = m_Players[i].sushisMade;      //each player gets points based on how many sushis they made :)
                 gsd.PlayerTimes[i] = 0;       //Each player gets two seconds per point scored
                 teamTime = 0;                 //Keep a running total of the total time scored by all players
             }
         }
-        gsd.ScoreSuffix = " points";    //This lets you write something after the player's score.
+        gsd.ScoreSuffix = " sushi made";    //This lets you write something after the player's score.
         gsd.TeamTime = teamTime;
         return gsd;
     }
 
     private void Awake()
     {
-        generatePromptSequence();
+        //generatePromptSequence();
     }
 
-    public void generatePromptSequence()
+    public void generatePromptSequence(int playerIndex)
     {
-        foreach (SpriteRenderer r in buttonPromptsRenderers)
+        if(playerIndex == 0)
         {
-            r.sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            //foreach (SpriteRenderer r in buttonPromptsRenderers)
+            //{
+            //    r.sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            //}
+            buttonPromptsRenderers[0].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            buttonPromptsRenderers[1].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            buttonPromptsRenderers[2].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
         }
+        if (playerIndex == 1)
+        {
+            buttonPromptsRenderers[3].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            buttonPromptsRenderers[4].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            buttonPromptsRenderers[5].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+        }
+        if (playerIndex == 2)
+        {
+            buttonPromptsRenderers[6].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            buttonPromptsRenderers[7].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            buttonPromptsRenderers[8].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+        }
+        if (playerIndex == 3)
+        {
+            buttonPromptsRenderers[9].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            buttonPromptsRenderers[10].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+            buttonPromptsRenderers[11].sprite = buttonPromptSprites[Random.Range(0, buttonPromptSprites.Length)];
+        }
+        
     }
 
     /// <summary>
@@ -80,7 +105,7 @@ public class SushiMakeMainScrpt : MinigameBase
 
     public override void TimeUp()
     {
-        //check who won the game and reset the minigame :)))
+        OnGameComplete(true);
         //Do you want to do something when the minigame timer runs out?
         //This is where you do that!
     }
