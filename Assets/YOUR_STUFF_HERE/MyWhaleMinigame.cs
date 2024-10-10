@@ -31,7 +31,7 @@ public class MyWhaleMinigame : MinigameBase
             {
                 if(scoreToEarn != 0)
                 {
-                    gsd.PlayerScores[i] = (int)((scoreToEarn) + gm.m_GameTimer.CurrentTime);//each player scores x point depending on how close to the centre they land on the plate,
+                    gsd.PlayerScores[i] = m_Plates[i].scoreToEarn; //each player scores x point depending on how close to the centre they land on the plate,
                                                                                             //as well as how much time is left
                 }
                 else
