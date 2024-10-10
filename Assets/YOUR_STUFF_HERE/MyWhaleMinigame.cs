@@ -123,8 +123,7 @@ public class MyWhaleMinigame : MinigameBase
         {
             if(p.landed == true)
             {
-                Invoke("TimeUp", 2f);
-                p.landed = false;
+                //Invoke("TimeUp", 2f);
                 scoreToEarn = p.scoreToEarn;
             }
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Jobs;
 
 public class PlayerSushiChef : MonoBehaviour
 {
@@ -18,6 +19,14 @@ public class PlayerSushiChef : MonoBehaviour
     public int sushisMade;
 
     [SerializeField] SushiMakeMainScrpt sushiMakeScprt;
+
+    [Header("Sushi Sprites Stuffs")]
+
+    [SerializeField] SpriteRenderer[] promptSpriteRndr;
+    [SerializeField] Sprite[] promptSprites;
+    [SerializeField] GameObject[] assembledSushi;
+
+    [SerializeField] GameObject[] directionArrows;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +58,8 @@ public class PlayerSushiChef : MonoBehaviour
 
     private void updatePromptSequence()
     {
+        resetSprites();
+        setArrowVisible(0);
         curPromptSequence = new int[prompts.Length];
         int count = 0;
         foreach (int num in curPromptSequence)
@@ -59,6 +70,39 @@ public class PlayerSushiChef : MonoBehaviour
         nextPrompt = curPromptSequence[0];
         sushisMade++;
         done = false;
+    }
+
+    private void resetSprites()
+    {
+        foreach(SpriteRenderer r in promptSpriteRndr)
+        {
+            if(r.sprite == promptSprites[3])
+            {
+                r.sprite = promptSprites[0];
+            }
+            if (r.sprite == promptSprites[4])
+            {
+                r.sprite = promptSprites[1];
+            }
+            if (r.sprite == promptSprites[5])
+            {
+                r.sprite = promptSprites[2];
+            }
+        }
+
+        foreach(GameObject o in assembledSushi)
+        {
+            o.SetActive(false);
+        }
+    }
+
+    private void setArrowVisible(int stepNo)
+    {
+        foreach(GameObject o in directionArrows)
+        {
+            o.SetActive(false);
+        }
+        directionArrows[stepNo].SetActive(true);
     }
 
     //ARRAY POSITIONS OF REQUIRED INPUTS -> DIRECTION INPUTS
@@ -74,6 +118,9 @@ public class PlayerSushiChef : MonoBehaviour
             directionInput = 0;
             if(directionInput == nextPrompt)
             {
+                promptSpriteRndr[j].sprite = promptSprites[j + 3];
+                assembledSushi[j].SetActive(true);
+                setArrowVisible(j);
                 j++;
                 print("yipee!");
                 if (nextPrompt == curPromptSequence[2] && j == 3)
@@ -94,6 +141,8 @@ public class PlayerSushiChef : MonoBehaviour
             {
                 print(":(");
                 j = 0;
+                resetSprites();
+                setArrowVisible(0);
                 nextPrompt = curPromptSequence[0];
             }
             lastFrame = thisFrame;
@@ -111,6 +160,9 @@ public class PlayerSushiChef : MonoBehaviour
             directionInput = 1;
             if (directionInput == nextPrompt)
             {
+                promptSpriteRndr[j].sprite = promptSprites[j + 3];
+                assembledSushi[j].SetActive(true);
+                setArrowVisible(j);
                 j++;
                 print("yipee!");
                 if (nextPrompt == curPromptSequence[2] && j == 3)
@@ -131,6 +183,8 @@ public class PlayerSushiChef : MonoBehaviour
             {
                 print(":(");
                 j = 0;
+                setArrowVisible(0);
+                resetSprites();
                 nextPrompt = curPromptSequence[0];
             }
             lastFrame = thisFrame;
@@ -148,6 +202,9 @@ public class PlayerSushiChef : MonoBehaviour
             directionInput = 2;
             if (directionInput == nextPrompt)
             {
+                promptSpriteRndr[j].sprite = promptSprites[j + 3];
+                assembledSushi[j].SetActive(true);
+                setArrowVisible(j);
                 j++;
                 print("yipee!");
                 if (nextPrompt == curPromptSequence[2] && j == 3)
@@ -168,6 +225,8 @@ public class PlayerSushiChef : MonoBehaviour
             {
                 print(":(");
                 j = 0;
+                setArrowVisible(0);
+                resetSprites();
                 nextPrompt = curPromptSequence[0];
             }
             lastFrame = thisFrame;
@@ -185,6 +244,9 @@ public class PlayerSushiChef : MonoBehaviour
             directionInput = 3;
             if (directionInput == nextPrompt)
             {
+                promptSpriteRndr[j].sprite = promptSprites[j + 3];
+                assembledSushi[j].SetActive(true);
+                setArrowVisible(j);
                 j++;
                 print("yipee!");
                 if (nextPrompt == curPromptSequence[2] && j == 3)
@@ -205,6 +267,8 @@ public class PlayerSushiChef : MonoBehaviour
             {
                 print(":(");
                 j = 0;
+                setArrowVisible(0);
+                resetSprites();
                 nextPrompt = curPromptSequence[0];
             }
             lastFrame = thisFrame;
